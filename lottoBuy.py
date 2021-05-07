@@ -1,16 +1,19 @@
 import json
 import os
 
+import config
 import requests
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
-import config
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait as wait
 
 ID = config.IDENTITY
 PW = config.PASSWORD
 SLACK_WEBHOOK_URL = config.SLACK_WEBHOOK_URL
 
-LOTTO_COUNT = '5'
+AUTO_LOTTO_COUNT = '2'
 HEADERS = {
     "Content-type": "application/json"
 }
@@ -43,8 +46,8 @@ driver.find_element_by_xpath(LOGIN_XPATH).click()
 # 구매창 이동
 driver.get('https://el.dhlottery.co.kr/game/TotalGame.jsp?LottoId=LO40')
 
-# 자동번호발급 클릭
-# UnexpectedAlertPresentException 이 여기서 발생되는걸 디버깅 해야 알 수 있었다.
+# 자동번호발급 이동
+# UnexpectedAlertPresentException
 try:
     driver.switch_to.frame('ifrm_tab')
     driver.find_element_by_xpath('//*[@id="num2"]').click()
@@ -58,12 +61,26 @@ except Exception as e:
     res = requests.post(SLACK_WEBHOOK_URL, headers=HEADERS, data=json.dumps(fail_data))
     driver.close()
 
-# 구매 개수 선택
+# 적용 수량 선택
 select = Select(driver.find_element_by_xpath('//*[@id="amoundApply"]'))
-select.select_by_value(LOTTO_COUNT)
+select.select_by_value(AUTO_LOTTO_COUNT)
 
-# 구매 확인 버튼 클릭
+# 확인 버튼 클릭
 driver.find_element_by_xpath('//*[@id="btnSelectNum"]').click()
+
+# 나의로또번호 이동
+# driver.switch_to.frame('ifrm_tab')
+driver.find_element_by_xpath('//*[@id="num4"]').click()
+
+# myList 선택
+# selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element
+wait(driver, 3).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="myList"]/li[1]/input'))).click()
+# driver.find_element_by_xpath('//*[@id="myList"]/li[1]/input').click()
+driver.find_element_by_xpath('//*[@id="myList"]/li[2]/input').click()
+driver.find_element_by_xpath('//*[@id="myList"]/li[3]/input').click()
+
+# 확인 버튼 클릭
+driver.find_element_by_xpath('//*[@id="divWay2Buy3"]/div[2]/input[1]').click()
 
 # 구매하기 클릭
 driver.find_element_by_xpath('//*[@id="btnBuy"]').click()
