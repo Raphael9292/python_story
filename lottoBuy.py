@@ -58,7 +58,7 @@ except Exception as e:
         "username": "Fail-Buy",
         "text": '<@UUTQGQDS6>' + str(e)
     }
-    res = requests.post(SLACK_WEBHOOK_URL, headers=HEADERS, data=json.dumps(fail_data))
+    req = requests.post(SLACK_WEBHOOK_URL, headers=HEADERS, data=json.dumps(fail_data))
     driver.close()
 
 # 적용 수량 선택
@@ -94,7 +94,7 @@ success_data = {
     "username" : "Success-Buy",
     "text" : '<@UUTQGQDS6>' + 'Check your result'
 }
-res = requests.post(SLACK_WEBHOOK_URL, headers=HEADERS, data=json.dumps(success_data))
+req = requests.post(SLACK_WEBHOOK_URL, headers=HEADERS, data=json.dumps(success_data))
 
 # chrome 종료
 driver.close()
