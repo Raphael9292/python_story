@@ -56,7 +56,7 @@ try:
 except Exception as e:
     fail_data = {
         "username": "Fail-Buy",
-        "text": '<@UUTQGQDS6>' + str(e)
+        "text": '<@U025Y7G6W65>' + str(e)
     }
     req = requests.post(SLACK_WEBHOOK_URL, headers=HEADERS, data=json.dumps(fail_data))
     driver.close()
@@ -92,7 +92,7 @@ alert.accept()
 # 성공 슬랙
 success_data = {
     "username" : "Success-Buy",
-    "text" : '<@UUTQGQDS6>' + 'Check your result'
+    "text" : '<@U025Y7G6W65>' + 'Check your result'
 }
 req = requests.post(SLACK_WEBHOOK_URL, headers=HEADERS, data=json.dumps(success_data))
 
