@@ -8,7 +8,6 @@ class Car():
     # class variables (share value all instances)
     price_variability_ratio = 1.0
 
-
     def __init__(self, company, details):
         self._company = company
         self._details = details
