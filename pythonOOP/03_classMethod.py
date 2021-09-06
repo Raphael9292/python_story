@@ -44,6 +44,14 @@ class Car():
         print('The price has gone up')
         return
 
+    # Static Method
+    @staticmethod
+    def check_car(inst):
+        if inst._company == 'benz':
+            return 'YES This car is {}'.format(inst._company)
+        else:
+            return 'Nope!'
+
 
 car1 = Car('ferrari', {'color': 'red', 'power': 500, 'price': 5000})
 car2 = Car('benz', {'color': 'black', 'power': 300, 'price': 3000})
@@ -68,3 +76,10 @@ print(car2.get_price_after())
 # class method 사용
 Car.raise_price(1.8)
 print(car2.get_price_after())
+
+# static method
+# 인스턴스 호출
+print(car2.check_car(car2))
+
+# 클래스로 호출
+print(Car.check_car(car1))
