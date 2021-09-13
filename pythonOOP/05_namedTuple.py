@@ -78,3 +78,26 @@ print(p4)
 
 # _asdict(): OrderedDict 반환 // 정렬로 반환
 print(p4._asdict())
+
+# namedTuple example
+# 각 클래스 당 20개, 4개 class
+
+Classes = namedtuple('Classes', ['rank', 'number'])
+
+numbers = [str(n) for n in range (1, 21)]
+ranks = 'A B C D'.split()
+
+# 한줄로 하기 위해 추상화
+students = [Classes(rank, number) for rank in ranks for number in numbers]
+print(len(students))
+for student in students:
+    print(student)
+
+# 직관적
+students2 = [Classes(rank, number)
+             for rank in 'A B C D'.split()
+                for number in [str(n)
+                    for n in range(1, 21)]]
+print(len(students2))
+for student in students2:
+    print(student)
