@@ -1,4 +1,6 @@
 # 구조 설계 후 class, instance로 재사용성 증가
+# https://docs.python.org/ko/3/tutorial/classes.html#a-first-look-at-classes
+# https://docs.python.org/ko/3/reference/datamodel.html#object.__init__
 
 # dict 구조
 # car_dicts = [
