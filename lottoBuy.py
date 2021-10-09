@@ -1,6 +1,6 @@
 import json
 import os
-
+import time
 import config
 import requests
 from selenium import webdriver
@@ -42,6 +42,15 @@ elem_login.send_keys(PW)
 # Login Click
 LOGIN_XPATH = '//*[@id="article"]/div[2]/div/form/div/div[1]/fieldset/div[1]/a'
 driver.find_element_by_xpath(LOGIN_XPATH).click()
+
+# 팝업창 제거
+# print(driver.window_handles)
+# time.sleep(1)
+popups = driver.window_handles
+for handle in popups:
+    if handle != popups[0]:
+        driver.switch_to.window(handle)
+        driver.close()
 
 # 구매창 이동
 driver.get('https://el.dhlottery.co.kr/game/TotalGame.jsp?LottoId=LO40')
@@ -86,7 +95,9 @@ driver.find_element_by_xpath('//*[@id="divWay2Buy3"]/div[2]/input[1]').click()
 driver.find_element_by_xpath('//*[@id="btnBuy"]').click()
 
 # 알람창 확인
-alert = driver.switch_to.alert
+# selenium.common.exceptions.NoAlertPresentException: Message: no such alert
+# 왜 알람창을 인식하지 못하는가...
+alert = driver.switch_to.alert()
 alert.accept()
 
 # 성공 슬랙
