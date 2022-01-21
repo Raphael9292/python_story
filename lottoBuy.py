@@ -27,7 +27,7 @@ option.add_experimental_option("prefs", {
 
 # change current directory
 # For windows crontab: C:\Program Files (x86)\cron\cron.tab
-os.chdir('C:\\Users\\Administrator\\Desktop\\python_story')
+os.chdir('C:\\Users\\Administrator\\Desktop\\raphaelCode\\python_story')
 
 DRIVER_PATH = './chromedriver.exe'
 # driver = webdriver.Chrome(chrome_options=option, executable_path=DRIVER_PATH)
